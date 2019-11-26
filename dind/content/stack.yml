@@ -1,0 +1,49 @@
+version: "3"
+services:
+  routing:
+    # replace username/repo:tag with your name and image details
+    image: 172.17.0.1:5000/babeld
+    privileged: true
+    network_mode: "host"
+    container_name: babeld
+  
+  herd:
+    image: 172.17.0.1:5000/kraken-herd
+    container_name: kraken_herd
+    ports:
+        - 14001:14001 #Redis
+        - 15000:15000 #Proxy
+        - 15001:15001 #Origin Peer
+        - 15002:15002 #Origin Server
+        - 15003:15003 #Tracker
+        - 15004:15004 #Build-Index
+        - 15005:15005 #Proxy Server
+    volumes:
+        - /etc/kraken/config/origin/development.yaml:/etc/kraken/config/origin/development.yaml
+        - /etc/kraken/config/tracker/development.yaml:/etc/kraken/config/tracker/development.yaml
+        - /etc/kraken/config/build-index/development.yaml:/etc/kraken/config/build-index/development.yaml
+        - /etc/kraken/config/proxy/development.yaml:/etc/kraken/config/proxy/development.yaml
+        - /herd_param.sh:/herd_param.sh
+        - /herd_start_processes.sh:/herd_start_processes.sh
+    restart: always
+    command: /herd_start_processes.sh
+
+  #db:
+    #image: mariadb
+    #restart: always
+    #privileged: true
+    #network_mode: "host"
+    #environment:
+      #- MYSQL_ROOT_PASSWORD=abc
+      #- MYSQL_DATABASE=test
+    #container_name: mariadb_server
+    
+  #adminer:
+    #image: adminer
+    #restart: always
+    #ports:
+        #- 8080:8080
+    #container_name: adminer
+volumes:
+    dbdata:
+

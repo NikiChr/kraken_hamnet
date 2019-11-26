@@ -1,0 +1,62 @@
+version: "3"
+services:
+    routing:
+        # replace username/repo:tag with your name and image details
+        image: 172.17.0.1:5000/babeld
+        privileged: true
+        network_mode: "host"
+        container_name: babeld
+
+    herd:
+        image: 172.17.0.1:5000/kraken-herd
+        container_name: kraken_herd
+        privileged: true
+        network_mode: "host"
+        ports:
+            - 14001:14001 #Redis
+            - 15000:15000 #Proxy ${PROXY_PORT}:${PROXY_PORT}
+            - 15001:15001 #Origin Peer ${ORIGIN_PEER_PORT}:${ORIGIN_PEER_PORT}
+            - 15002:15002 #Origin Server ${ORIGIN_SERVER_PORT}:${ORIGIN_SERVER_PORT}
+            - 15003:15003 #Tracker ${TRACKER_PORT}:${TRACKER_PORT}
+            - 15004:15004 #Build-Index ${BUILD_INDEX_PORT}:${BUILD_INDEX_PORT}
+            - 15005:15005 #Proxy Server ${PROXY_SERVER_PORT}:${PROXY_SERVER_PORT}
+        volumes:
+            - /etc/kraken/config/build-index/base.yaml:/etc/kraken/config/build-index/base.yaml
+            - /etc/kraken/config/build-index/development.yaml:/etc/kraken/config/build-index/development.yaml
+            - /etc/kraken/config/origin/base.yaml:/etc/kraken/config/origin/base.yaml
+            - /etc/kraken/config/origin/development.yaml:/etc/kraken/config/origin/development.yaml
+            - /etc/kraken/config/proxy/base.yaml:/etc/kraken/config/proxy/base.yaml
+            - /etc/kraken/config/proxy/development.yaml:/etc/kraken/config/proxy/development.yaml
+            - /etc/kraken/config/tracker/base.yaml:/etc/kraken/config/tracker/base.yaml
+            - /etc/kraken/config/tracker/development.yaml:/etc/kraken/config/tracker/development.yaml
+            - /etc/kraken/herd_param.sh:/etc/kraken/herd_param.sh
+            - /etc/kraken/herd_start_processes.sh:/etc/kraken/herd_start_processes.sh
+        restart: unless-stopped
+        command: ./herd_start_processes.sh #./etc/kraken/herd_start_processes.sh
+
+    agent:
+        image: 172.17.0.1:5000/kraken-agent
+        restart: always
+        privileged: true
+        network_mode: "host"
+        container_name: kraken_agent
+        ports:
+            - 16000:16000 #Registry $AGENT_REGISTRY_PORT:$AGENT_REGISTRY_PORT
+            - 16001:16001 #Peer ${AGENT_PEER_PORT}:${AGENT_PEER_PORT}
+            - 16002:16002 #Server ${AGENT_SERVER_PORT}:${AGENT_SERVER_PORT}
+        volumes:
+            - /etc/kraken/config/agent/base.yaml:/etc/kraken/config/agent/base.yaml
+            - /etc/kraken/config/agent/development.yaml:/etc/kraken/config/agent/development.yaml
+        command: /usr/bin/kraken-agent --config=/etc/kraken/config/agent/development.yaml --peer-ip=${HOSTNAME} --peer-port=${AGENT_PEER_PORT} --agent-server-port=${AGENT_SERVER_PORT} --agent-registry-port=${AGENT_REGISTRY_PORT}
+
+    backend:
+        image: 172.17.0.1:5000/registry
+        container_name: registry
+        privileged: true
+        network_mode: "host"
+        restart: unless-stopped
+        ports:
+            - 5001:5000
+
+volumes:
+    dbdata:
