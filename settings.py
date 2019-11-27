@@ -73,16 +73,18 @@ def measureTime(title,bo, Instance, Test, iteration):
         if not node in seeder:
             for i in range(int(iteration)):
                 #with open('./measurements/%s/%s/%s/time/%s.txt' % (Instance, Test, int(iteration), node)) as input:
-                with open('./measurements/%s/%s/%s/time/%s.txt' % (Instance, Test, i, node)) as input:
-                    print ('%s %s' %(node, i))
-                    lines = input.readlines()
-                    #for line in lines:
-                    time1 = lines[1]
-                    time2 = lines[-1]
-                    time1 = datetime.strptime(time1[:23], '%Y-%m-%dT%H:%M:%S.%f') #2019-09-30 14:19:25.000
-                    time2 = datetime.strptime(time2[:23], '%Y-%m-%dT%H:%M:%S.%f')
-                    tmp = time2 - time1
-                    tmp = tmp.total_seconds()
+                with open('./measurements/%s/%s/%s/time/%s_start.txt' % (Instance, Test, i, node)) as start:
+                    with open('./measurements/%s/%s/%s/time/%s_end.txt' % (Instance, Test, i, node)) as end:
+                        print ('%s %s' %(node, i))
+                        lines1 = start.readlines()
+                        lines2 = end.readlines()
+                        #for line in lines:
+                        time1 = lines1[i]
+                        time2 = lines2[i]
+                        time1 = datetime.strptime(time1[:23], '%Y-%m-%dT%H:%M:%S.%f') #2019-09-30 14:19:25.000
+                        time2 = datetime.strptime(time2[:23], '%Y-%m-%dT%H:%M:%S.%f')
+                        tmp = time2 - time1
+                        tmp = tmp.total_seconds()
                 timeDelta[i].append(str(tmp))
             if bo == True:
                 print node

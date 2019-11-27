@@ -1,5 +1,6 @@
 FROM docker:dind
 
+#coreutils for extra date options
 RUN apk add --no-cache bash \
 	py-pip \
 	python-dev \
@@ -16,6 +17,7 @@ RUN apk add --no-cache bash \
 	curl \
 	tar \
 	openrc \
+	coreutils \
 	&& apk update \
 	&& pip install docker-compose
 

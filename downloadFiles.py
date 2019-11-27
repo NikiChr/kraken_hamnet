@@ -115,7 +115,7 @@ def downloadImage(image, iterations, outage = False, oNr = 0, oTime = 0):
         doc.close()
         for node in set.name:
             if not node in set.seeder:
-                subprocess.call(['docker exec mn.%s docker pull localhost:16000/test/%s%s &' % (node, image, iteration)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" >> times/%s_%s_start.txt; docker pull localhost:16000/test/%s%s > dump.txt; date +"%%Y-%%m-%%dT%%T.%%6N" >> times/%s_%s_end.txt)"&' % (node, image, currentTest, image, image, currentTest, iteration)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             if node in set.seeder:
                 complete[set.name.index(node)] = True
                 bar3.next()
@@ -148,8 +148,10 @@ def downloadImage(image, iterations, outage = False, oNr = 0, oTime = 0):
         for node in set.name:
             #
             #subprocess.call(['docker cp mn.%s:tmp.txt measurements/%s/%s/%s/time/%s.txt' % (node, currentInstance, currentTest, (iteration + 1), node)],stdout=FNULL, stderr=subp
-            subprocess.call(["docker exec mn.%s sh -c 'docker logs -t --since %s kraken_agent > tmp.txt'" % (node, starttime)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-            subprocess.call(['docker cp mn.%s:tmp.txt measurements/%s/%s/%s/time/%s.txt' % (node, currentInstance, currentTest, (iteration), node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker cp mn.%s:times/%s_%s_start.txt measurements/%s/%s/%s/time/%s_start.txt' % (node, image, currentTest, currentInstance, currentTest, (iteration), node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker cp mn.%s:times/%s_%s_end.txt measurements/%s/%s/%s/time/%s_end.txt' % (node, image, currentTest, currentInstance, currentTest, (iteration), node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            #subprocess.call(["docker exec mn.%s sh -c 'docker logs -t --since %s kraken_agent > tmp.txt'" % (node, starttime)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            #subprocess.call(['docker cp mn.%s:tmp.txt measurements/%s/%s/%s/time/%s.txt' % (node, currentInstance, currentTest, (iteration), node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             subprocess.call(["docker exec mn.%s sh -c 'iptables -L INPUT -n -v -x > tmp_IN.txt'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             subprocess.call(['docker cp mn.%s:tmp_IN.txt measurements/%s/%s/%s/traffic/%s_IN.txt' % (node, currentInstance, currentTest, (iteration), node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             subprocess.call(["docker exec mn.%s sh -c 'iptables -L OUTPUT -n -v -x > tmp_OUT.txt'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
