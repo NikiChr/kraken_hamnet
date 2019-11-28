@@ -1,6 +1,6 @@
 FROM docker:dind
 
-#coreutils for extra date options
+#coreutils for extra date options, iproute2 for interface limit
 RUN apk add --no-cache bash \
 	py-pip \
 	python-dev \
@@ -18,6 +18,7 @@ RUN apk add --no-cache bash \
 	tar \
 	openrc \
 	coreutils \
+	iproute2 \
 	&& apk update \
 	&& pip install docker-compose
 
