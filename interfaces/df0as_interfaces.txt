@@ -1,0 +1,5 @@
+df0as-db0cj Link encap:Ethernet  HWaddr C2:2D:82:C8:80:12  
+          inet addr:44.0.0.211  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+df0as-db0jgk Link encap:Ethernet  HWaddr AE:C1:7F:44:93:FB  
+          inet addr:44.0.0.205  Bcast:0.0.0.0  Mask:255.255.255.254

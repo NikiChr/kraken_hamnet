@@ -1,0 +1,8 @@
+db0rom-db0ktn Link encap:Ethernet  HWaddr DA:7B:06:A0:38:D2  
+          inet addr:44.0.0.35  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0rom-db0uc Link encap:Ethernet  HWaddr 0E:C7:30:E4:0B:86  
+          inet addr:44.0.0.31  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0rom-dl0new Link encap:Ethernet  HWaddr 8E:CB:C8:3E:C9:1A  
+          inet addr:44.0.0.21  Bcast:0.0.0.0  Mask:255.255.255.254

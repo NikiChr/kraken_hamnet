@@ -1,0 +1,5 @@
+db0eb-db0bio Link encap:Ethernet  HWaddr C2:C8:C1:7A:CA:DC  
+          inet addr:44.0.0.140  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0eb-db0nhm Link encap:Ethernet  HWaddr EA:95:E3:21:21:37  
+          inet addr:44.0.0.138  Bcast:0.0.0.0  Mask:255.255.255.254

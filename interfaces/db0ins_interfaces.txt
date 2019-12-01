@@ -1,0 +1,23 @@
+db0ins-db0eml Link encap:Ethernet  HWaddr 92:F8:1B:B5:B3:74  
+          inet addr:44.0.0.48  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-db0gth Link encap:Ethernet  HWaddr 7E:E3:93:44:41:D9  
+          inet addr:44.0.0.1  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-db0mac Link encap:Ethernet  HWaddr AE:61:D4:66:FD:E4  
+          inet addr:44.0.0.56  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-db0nu Link encap:Ethernet  HWaddr 1E:72:61:CF:53:57  
+          inet addr:44.0.0.50  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-db0sbn Link encap:Ethernet  HWaddr F2:AE:EE:25:E9:7A  
+          inet addr:44.0.0.52  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-db0taw Link encap:Ethernet  HWaddr 2A:93:04:DF:3A:37  
+          inet addr:44.0.0.54  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-dm0ea Link encap:Ethernet  HWaddr 0A:49:93:6A:CD:9A  
+          inet addr:44.0.0.44  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0ins-dm0hr Link encap:Ethernet  HWaddr 36:3E:D3:E3:0A:7A  
+          inet addr:44.0.0.46  Bcast:0.0.0.0  Mask:255.255.255.254

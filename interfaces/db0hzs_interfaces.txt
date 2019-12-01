@@ -1,0 +1,5 @@
+db0hzs-db0hhb Link encap:Ethernet  HWaddr 22:45:94:4E:00:2B  
+          inet addr:44.0.0.147  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hzs-db0zm Link encap:Ethernet  HWaddr 5A:DA:76:02:1C:F7  
+          inet addr:44.0.0.87  Bcast:0.0.0.0  Mask:255.255.255.254

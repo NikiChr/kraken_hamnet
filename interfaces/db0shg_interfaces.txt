@@ -1,0 +1,2 @@
+db0shg-db0ktb Link encap:Ethernet  HWaddr 0E:6A:A3:87:47:47  
+          inet addr:44.0.0.149  Bcast:0.0.0.0  Mask:255.255.255.254

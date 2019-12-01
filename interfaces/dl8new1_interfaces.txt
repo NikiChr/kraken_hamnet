@@ -1,0 +1,2 @@
+dl8new1-db0rom Link encap:Ethernet  HWaddr 1A:28:7B:BC:A8:34  
+          inet addr:44.0.0.198  Bcast:0.0.0.0  Mask:255.255.255.254

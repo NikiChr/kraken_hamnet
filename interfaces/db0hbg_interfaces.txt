@@ -1,0 +1,20 @@
+db0hbg-db0ab Link encap:Ethernet  HWaddr 06:5B:B1:F5:38:4F  
+          inet addr:44.0.0.220  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0bl Link encap:Ethernet  HWaddr 92:5F:C5:53:0D:0D  
+          inet addr:44.0.0.79  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0faa Link encap:Ethernet  HWaddr FA:30:82:9C:DE:C9  
+          inet addr:44.0.0.222  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0feu Link encap:Ethernet  HWaddr 7E:86:40:27:8C:7C  
+          inet addr:44.0.0.218  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0mpq Link encap:Ethernet  HWaddr 0E:F5:D6:96:14:C0  
+          inet addr:44.0.0.159  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0vox Link encap:Ethernet  HWaddr 12:29:4A:55:0E:D3  
+          inet addr:44.0.0.19  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0hbg-db0zb Link encap:Ethernet  HWaddr 86:81:FD:FD:28:4A  
+          inet addr:44.0.0.91  Bcast:0.0.0.0  Mask:255.255.255.254

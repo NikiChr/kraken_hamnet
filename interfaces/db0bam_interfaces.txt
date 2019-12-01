@@ -1,0 +1,5 @@
+db0bam-db0adb Link encap:Ethernet  HWaddr D2:26:E5:57:A0:AB  
+          inet addr:44.0.0.202  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0bam-dm0et Link encap:Ethernet  HWaddr 76:D4:A5:95:6A:67  
+          inet addr:44.0.0.200  Bcast:0.0.0.0  Mask:255.255.255.254

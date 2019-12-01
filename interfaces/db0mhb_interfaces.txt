@@ -1,0 +1,11 @@
+db0mhb-db0bul Link encap:Ethernet  HWaddr 2A:CF:65:F1:08:F2  
+          inet addr:44.0.0.6  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0mhb-db0cha Link encap:Ethernet  HWaddr 1E:64:A6:A9:72:AB  
+          inet addr:44.0.0.10  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0mhb-db0hhb Link encap:Ethernet  HWaddr 7A:47:FF:B5:8B:73  
+          inet addr:44.0.0.8  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0mhb-db0hsr Link encap:Ethernet  HWaddr EA:B5:3C:31:22:69  
+          inet addr:44.0.0.12  Bcast:0.0.0.0  Mask:255.255.255.254

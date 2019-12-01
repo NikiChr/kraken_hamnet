@@ -1,0 +1,2 @@
+db0mak-db0zb Link encap:Ethernet  HWaddr 6A:4D:6F:E0:E2:E0  
+          inet addr:44.0.0.66  Bcast:0.0.0.0  Mask:255.255.255.254

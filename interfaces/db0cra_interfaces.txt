@@ -1,0 +1,2 @@
+db0cra-db0faa Link encap:Ethernet  HWaddr 26:D6:C8:0A:09:52  
+          inet addr:44.0.0.229  Bcast:0.0.0.0  Mask:255.255.255.254

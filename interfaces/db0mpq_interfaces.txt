@@ -1,0 +1,5 @@
+db0mpq-db0hbg Link encap:Ethernet  HWaddr B6:B1:4A:82:99:10  
+          inet addr:44.0.0.158  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0mpq-db0noe Link encap:Ethernet  HWaddr F2:7D:98:A5:2C:21  
+          inet addr:44.0.0.160  Bcast:0.0.0.0  Mask:255.255.255.254

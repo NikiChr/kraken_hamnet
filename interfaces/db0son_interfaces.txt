@@ -1,0 +1,8 @@
+db0son-db0bt Link encap:Ethernet  HWaddr EE:0F:F3:80:D1:D2  
+          inet addr:44.0.0.4  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0son-db0fhc Link encap:Ethernet  HWaddr 66:9F:81:42:93:67  
+          inet addr:44.0.0.2  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0son-db0ren Link encap:Ethernet  HWaddr FE:8B:3D:CE:F0:6F  
+          inet addr:44.0.0.0  Bcast:0.0.0.0  Mask:255.255.255.254

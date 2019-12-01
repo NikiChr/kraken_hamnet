@@ -1,0 +1,2 @@
+db0slk-db0hex Link encap:Ethernet  HWaddr 3A:D0:21:09:C5:22  
+          inet addr:44.0.0.104  Bcast:0.0.0.0  Mask:255.255.255.254

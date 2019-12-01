@@ -1,0 +1,5 @@
+db0nu-db0drh Link encap:Ethernet  HWaddr 7A:C2:BC:05:FF:E2  
+          inet addr:44.0.0.17  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0nu-db0taw Link encap:Ethernet  HWaddr DE:5B:82:74:66:6D  
+          inet addr:44.0.0.24  Bcast:0.0.0.0  Mask:255.255.255.254

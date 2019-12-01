@@ -1,0 +1,5 @@
+dl1nux-db0fhc Link encap:Ethernet  HWaddr AE:DA:D0:76:73:0A  
+          inet addr:44.0.0.32  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+dl1nux-db0uc Link encap:Ethernet  HWaddr 52:D2:32:7F:0F:36  
+          inet addr:44.0.0.29  Bcast:0.0.0.0  Mask:255.255.255.254

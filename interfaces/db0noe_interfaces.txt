@@ -1,0 +1,2 @@
+db0noe-db0mpq Link encap:Ethernet  HWaddr DA:77:68:E9:61:C2  
+          inet addr:44.0.0.161  Bcast:0.0.0.0  Mask:255.255.255.254

@@ -1,0 +1,11 @@
+db0uc-db0adb Link encap:Ethernet  HWaddr 6E:5C:9E:6C:92:2F  
+          inet addr:44.0.0.27  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0uc-db0rom Link encap:Ethernet  HWaddr EA:1B:E4:74:C2:79  
+          inet addr:44.0.0.30  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0uc-db0zb Link encap:Ethernet  HWaddr FA:8E:7E:DD:41:8F  
+          inet addr:44.0.0.11  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+db0uc-dl1nux Link encap:Ethernet  HWaddr F6:4B:7C:4C:DA:3A  
+          inet addr:44.0.0.28  Bcast:0.0.0.0  Mask:255.255.255.254

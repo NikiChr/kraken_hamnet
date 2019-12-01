@@ -1,0 +1,2 @@
+db0fue-db0vox Link encap:Ethernet  HWaddr 26:9C:F2:EE:1C:88  
+          inet addr:44.0.0.15  Bcast:0.0.0.0  Mask:255.255.255.254

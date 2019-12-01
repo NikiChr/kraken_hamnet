@@ -1,0 +1,5 @@
+dm0ea-db0ea Link encap:Ethernet  HWaddr 22:F1:77:30:9A:15  
+          inet addr:44.0.0.134  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+dm0ea-db0ins Link encap:Ethernet  HWaddr 72:C6:DE:83:3B:6C  
+          inet addr:44.0.0.45  Bcast:0.0.0.0  Mask:255.255.255.254

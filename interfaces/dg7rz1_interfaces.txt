@@ -1,0 +1,5 @@
+dg7rz1-db0hhb Link encap:Ethernet  HWaddr 12:0A:14:C4:9F:E2  
+          inet addr:44.0.0.145  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+dg7rz1-dl1flo1 Link encap:Ethernet  HWaddr 5A:80:F4:D3:A1:02  
+          inet addr:44.0.0.35  Bcast:0.0.0.0  Mask:255.255.255.254

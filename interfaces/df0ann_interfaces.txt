@@ -1,0 +1,5 @@
+df0ann-db0fhn Link encap:Ethernet  HWaddr 9E:45:E4:F2:60:80  
+          inet addr:44.0.0.72  Bcast:0.0.0.0  Mask:255.255.255.254
+--
+df0ann-db0for Link encap:Ethernet  HWaddr 9E:55:54:6B:90:7F  
+          inet addr:44.0.0.74  Bcast:0.0.0.0  Mask:255.255.255.254
