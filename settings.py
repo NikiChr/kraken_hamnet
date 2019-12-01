@@ -3,10 +3,16 @@ import subprocess
 import os
 #import downloadFiles as dF
 
-edgelist = './hamnetgraph'
+edgelist = './hamnet100_renamed'
 if edgelist == './hamnetgraphfull':
     seeder = ['db0zb']
     servers = ['db0zb','db0bi','db0hrf','db0hex','db0hr','db0zka','db0ab','db0ins','db0ko','db0lb']
+elif edgelist == './hamnet100_renamed':
+    seeder = ['db0zb']
+    servers = ['db0zb'] #1
+    #servers = ['db0zb','db0hex'] #2
+    #servers = ['db0zb','db0hex','db0ins','db0taw','db0hbg','db0vox','db0uc','db0eam','db0hhb','db0bio'] #10
+    #servers = ['db0gth', 'db0wof', 'db0mw', 'db0mhb', 'db0vox', 'db0bul', 'db0wk', 'db0cgw', 'dl1flo1', 'db0son', 'db0rvb', 'db0ins', 'db0kvk', 'db0mio', 'db0cha', 'dm0avh', 'db0mak', 'db0hsr', 'db0mac', 'db0kt', 'dm0hr', 'df0ann', 'db0uhf', 'db0bl', 'db0zw', 'db0bwl', 'db0zm', 'db0bt', 'db0zb', 'db0slk', 'db0fue', 'db0eam', 'db0ein', 'db0hal', 'db0uc', 'dm0ea', 'db0ea', 'db0eb', 'db0hhb', 'db0ktb', 'db0ktn', 'db0nes', 'db0mpq', 'db0oha', 'dg7rz1', 'db0bbg', 'db0fhc', 'db0fha', 'db0fhn', 'db0ase', 'db0tan', 'db0for', 'db0war', 'db0bio', 'df0esa', 'dl9nbj1', 'db0nhm', 'db0hof', 'db0khh', 'db0hol', 'dl8new1', 'db0bam', 'db0hq', 'db0jgk', 'db0noe', 'db0bay', 'db0sbn', 'db0kat', 'db0sn', 'db0cj', 'db0hnk', 'db0hw', 'db0hbs', 'db0dri', 'db0hbg', 'db0gj', 'db0taw', 'db0adb', 'db0hrc', 'db0faa', 'db0hzs', 'db0eml', 'df0as', 'dl1nux', 'db0hex', 'db0shg', 'dm0et', 'db0nu', 'db0yq', 'db0feu', 'db0yz', 'db0rom', 'db0fc', 'dm0svx', 'db0abc', 'db0abb', 'db0ab', 'db0abz', 'db0cra', 'db0erf'] #100
 else:
     seeder = ['db0uc']
     servers = ['db0uc','db0ktn']
@@ -72,15 +78,16 @@ def measureTime(title,bo, Instance, Test, iteration):
     for node in name:
         if not node in seeder:
             for i in range(int(iteration)):
+                #print i
                 #with open('./measurements/%s/%s/%s/time/%s.txt' % (Instance, Test, int(iteration), node)) as input:
                 with open('./measurements/%s/%s/%s/time/%s_start.txt' % (Instance, Test, i, node)) as start:
                     with open('./measurements/%s/%s/%s/time/%s_end.txt' % (Instance, Test, i, node)) as end:
-                        print ('%s %s' %(node, i))
+                        #print ('%s %s' %(node, i))
                         lines1 = start.readlines()
                         lines2 = end.readlines()
                         #for line in lines:
-                        time1 = lines1[i]
-                        time2 = lines2[i]
+                        time1 = lines1[0]
+                        time2 = lines2[0]
                         time1 = datetime.strptime(time1[:23], '%Y-%m-%dT%H:%M:%S.%f') #2019-09-30 14:19:25.000
                         time2 = datetime.strptime(time2[:23], '%Y-%m-%dT%H:%M:%S.%f')
                         tmp = time2 - time1
@@ -97,11 +104,8 @@ def measureTime(title,bo, Instance, Test, iteration):
         timeDelta[m].sort(key=float)
     for l in range(len(name)):
         for o in range(int(iteration)):
-            #print ('#%s #%s' % (o, l))
             doc.write('%s ' % str(timeDelta[o][l]))
         doc.write('\n')
-
-    #doc.write('%s, %s\n' % (node, str(timeDelta[name.index(node)])))
     doc.close()
     if bo == True:
         print (timeDelta)
@@ -115,8 +119,8 @@ def measureTraffic(title, bo, Instance, Test, iteration):
 
     for i in range(int(iteration)):
         for node in name:
-            bytesIN[i-1].append(0)
-            bytesOUT[i-1].append(0)
+            bytesIN[i].append(0)
+            bytesOUT[i].append(0)
             with open('measurements/%s/%s/%s/traffic/%s_IN.txt' % (Instance, Test, i, node)) as inputIN:
                 with open('measurements/%s/%s/%s/traffic/%s_OUT.txt' % (Instance, Test, i, node)) as inputOUT:
                     linesIN = inputIN.readlines()
@@ -128,13 +132,13 @@ def measureTraffic(title, bo, Instance, Test, iteration):
                             #print j
                             tmp = linesIN[j].split() # tmp[1] = bytes
                             #print tmp
-                            bytesIN[i-1][name.index(node)] = bytesIN[i-1][name.index(node)] + int(tmp[1])
+                            bytesIN[i][name.index(node)] = bytesIN[i][name.index(node)] + int(tmp[1])
                             #print bytesIN[i-1][name.index(node)]
-                    if len(linesIN) > 2:
+                    if len(linesOUT) > 2:
                         for k in range(2,len(linesOUT)):
                             #print k
                             tmp = linesOUT[k].split() # tmp[1] = bytes
-                            bytesOUT[i-1][name.index(node)] = bytesOUT[i-1][name.index(node)] + int(tmp[1])
+                            bytesOUT[i][name.index(node)] = bytesOUT[i][name.index(node)] + int(tmp[1])
 
     for m in range(int(iteration)):
         bytesIN[m].sort(key=float)
