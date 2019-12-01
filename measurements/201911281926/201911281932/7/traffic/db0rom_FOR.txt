@@ -1,0 +1,14 @@
+Chain FORWARD (policy ACCEPT 14605 packets, 163025327 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+    3923 63435329 FOR        all  --  *      db0rom-dl0new  0.0.0.0/0            0.0.0.0/0           
+    3292 23926632 FOR        all  --  db0rom-dl0new *       0.0.0.0/0            0.0.0.0/0           
+    3660 31586837            all  --  *      db0rom-db0ktn  0.0.0.0/0            0.0.0.0/0           
+    3730 44076529            all  --  db0rom-db0ktn *       0.0.0.0/0            0.0.0.0/0           
+    7022 68003161            all  --  *      db0rom-db0uc  0.0.0.0/0            0.0.0.0/0           
+    7583 95022166            all  --  db0rom-db0uc *       0.0.0.0/0            0.0.0.0/0           
+   14605 163025327 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+   14605 163025327 DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           

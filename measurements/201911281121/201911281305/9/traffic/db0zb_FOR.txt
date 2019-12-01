@@ -1,0 +1,14 @@
+Chain FORWARD (policy ACCEPT 22516 packets, 334407490 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+    5110 82180045 FOR        all  --  *      db0zb-db0taw  0.0.0.0/0            0.0.0.0/0           
+    4988 58998828 FOR        all  --  db0zb-db0taw *       0.0.0.0/0            0.0.0.0/0           
+    6580 67912416            all  --  *      db0zb-db0bt  0.0.0.0/0            0.0.0.0/0           
+    8031 153429546            all  --  db0zb-db0bt *       0.0.0.0/0            0.0.0.0/0           
+   10826 184315029            all  --  *      db0zb-db0uc  0.0.0.0/0            0.0.0.0/0           
+    9497 121979116            all  --  db0zb-db0uc *       0.0.0.0/0            0.0.0.0/0           
+   22516 334407490 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+   22516 334407490 DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           

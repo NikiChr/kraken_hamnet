@@ -1,0 +1,20 @@
+Chain FORWARD (policy ACCEPT 38513 packets, 632332025 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   12424 177148224 FOR        all  --  *      db0uc-db0zb  0.0.0.0/0            0.0.0.0/0           
+   13149 244183738 FOR        all  --  db0uc-db0zb *       0.0.0.0/0            0.0.0.0/0           
+    4198 79119644            all  --  *      db0uc-db0adb  0.0.0.0/0            0.0.0.0/0           
+    3400 30644298            all  --  db0uc-db0adb *       0.0.0.0/0            0.0.0.0/0           
+   15870 269866025            all  --  *      db0uc-db0rom  0.0.0.0/0            0.0.0.0/0           
+   14987 231710837            all  --  db0uc-db0rom *       0.0.0.0/0            0.0.0.0/0           
+    6021 106198132            all  --  *      db0uc-dl1nux  0.0.0.0/0            0.0.0.0/0           
+    6977 125793152            all  --  db0uc-dl1nux *       0.0.0.0/0            0.0.0.0/0           
+   38513 632332025 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+   38513 632332025 DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      br-706e7a151da2  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      br-706e7a151da2  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  br-706e7a151da2 !br-706e7a151da2  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  br-706e7a151da2 br-706e7a151da2  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           

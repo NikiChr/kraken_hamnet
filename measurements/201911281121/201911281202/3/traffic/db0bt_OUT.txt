@@ -1,0 +1,4 @@
+Chain OUTPUT (policy ACCEPT 2990 packets, 45281516 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+     505    30460 OUT        all  --  *      db0bt-db0son  0.0.0.0/0            0.0.0.0/0           
+    1699 18474451            all  --  *      db0bt-db0zb  0.0.0.0/0            0.0.0.0/0           

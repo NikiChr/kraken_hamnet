@@ -1,0 +1,20 @@
+Chain FORWARD (policy ACCEPT 84 packets, 7868 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+      30     3285 FOR        all  --  *      db0uc-db0zb  0.0.0.0/0            0.0.0.0/0           
+      33     2616 FOR        all  --  db0uc-db0zb *       0.0.0.0/0            0.0.0.0/0           
+      10     1095            all  --  *      db0uc-db0adb  0.0.0.0/0            0.0.0.0/0           
+      11      872            all  --  db0uc-db0adb *       0.0.0.0/0            0.0.0.0/0           
+      44     3488            all  --  *      db0uc-db0rom  0.0.0.0/0            0.0.0.0/0           
+      40     4380            all  --  db0uc-db0rom *       0.0.0.0/0            0.0.0.0/0           
+       0        0            all  --  *      db0uc-dl1nux  0.0.0.0/0            0.0.0.0/0           
+       0        0            all  --  db0uc-dl1nux *       0.0.0.0/0            0.0.0.0/0           
+      84     7868 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+      84     7868 DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      br-e46ffdb44ec4  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      br-e46ffdb44ec4  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  br-e46ffdb44ec4 !br-e46ffdb44ec4  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  br-e46ffdb44ec4 br-e46ffdb44ec4  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0            ctstate RELATED,ESTABLISHED
+       0        0 DOCKER     all  --  *      docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 !docker0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  docker0 docker0  0.0.0.0/0            0.0.0.0/0           

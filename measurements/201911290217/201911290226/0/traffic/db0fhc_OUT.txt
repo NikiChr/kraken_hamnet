@@ -1,0 +1,5 @@
+Chain OUTPUT (policy ACCEPT 3308 packets, 51104741 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+     350    20228 OUT        all  --  *      db0fhc-db0drh  0.0.0.0/0            0.0.0.0/0           
+     617    35481            all  --  *      db0fhc-db0son  0.0.0.0/0            0.0.0.0/0           
+     902    62004            all  --  *      db0fhc-dl1nux  0.0.0.0/0            0.0.0.0/0           
