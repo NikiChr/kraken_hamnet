@@ -10,8 +10,6 @@ RUN apk add --no-cache bash \
 	libc-dev \
 	git \
 	musl-dev\
-	nano \
-	tshark \
 	make \
 	go \
 	curl \

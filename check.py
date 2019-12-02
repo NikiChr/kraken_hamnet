@@ -59,15 +59,15 @@ def check():
 
     for node in babeld:
         if node in set.servers:
-            subprocess.call(['sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+            subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
         else:
-            subprocess.call(['sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+            subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
     for node in agent:
         if not node in babeld:
             if node in set.servers:
-                subprocess.call(['sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+                subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
             else:
-                subprocess.call(['sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+                subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
     for node in herd:
         if not node in (babeld or agent):
-            subprocess.call(['sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+            subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
