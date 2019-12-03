@@ -69,7 +69,6 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         image = image.strip()
 
         #prepare downloads
-        checkKrakenContainer()
         subprocess.call(['mkdir measurements/%s/%s/%s/' % (currentInstance,currentTest,i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
         subprocess.call(['mkdir measurements/%s/%s/%s/time/' % (currentInstance,currentTest,i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
         subprocess.call(['mkdir measurements/%s/%s/%s/traffic/' % (currentInstance,currentTest,i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
@@ -91,6 +90,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
 
         print ('All traces of %s deleted on every host' % image)
         print ('Waiting for torrents to clean up')
+        checkKrakenContainer()
         #time.sleep(300)
         #time.sleep(180)
 
@@ -100,7 +100,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
             if i == 0:
                 subprocess.call(['docker exec -it mn.%s docker pull %s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                 subprocess.call(['docker exec -it mn.%s docker tag %s localhost:15000/test/%s' % (node, image, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-            print ('Pushing %s to registry for sharing' % image)
+            print ('Pushing %s to registry(s) for sharing' % image)
             subprocess.call(['docker exec -it mn.%s docker push localhost:15000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         #start download
@@ -113,11 +113,13 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         for node in set.name:
             subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             if not node in set.seeder:
+                #time.sleep(0.1)
                 subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_start.txt && docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, node, i, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             else:
                 complete[set.name.index(node)] = True
                 bar_download.next()
                 sum = sum + 1
+                iPrev = datetime.now()
 
         #waiting for outage
         if outage == True:
@@ -129,30 +131,48 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
 
         #check download
         #boost = True
-        while sum < len(set.name):
-            time.sleep(60)
+        prev = sum
+        #delta = iCurrent - iStart
+        #iCurrent = datetime.now()
+        missing = []
+        while sum < len(set.name): #
             iCurrent = datetime.now()
-            delta = iCurrent - iStart
-            delta = delta.total_seconds()
-            if (delta > 1200) or (sum/len(set.name)>=0.5):
-                time.sleep(180)
+            prevDelta = iCurrent - iPrev #time since last download
+            startDelta = iCurrent - iStart
+            time.sleep(60)
+            if (sum/len(set.name)>=0.5) or (startDelta.total_seconds() > 480):
+                time.sleep(60)
+            print ('\nTime since start %ss' % startDelta.total_seconds())
+            print ('Time since last update %ss' % prevDelta.total_seconds())
             for node in set.name:
                 if complete[set.name.index(node)] == False:
                     if 'localhost:16000/test/%s' % (image) in subprocess.check_output(['docker exec mn.%s docker image ls' % node],shell=True):
                         sum = sum + 1
                         complete[set.name.index(node)] = True
                         bar_download.next()
-                    #elif (sum/len(set.name)<=0.5) and (boost==True):
-                elif (sum/len(set.name)>=0.5):
-                            for node in set.name:
-                                if complete[set.name.index(node)] == False:
-                                    subprocess.call(['docker exec mn.%s sh -c "(docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, image,node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-                        #boost = False
-                if delta > 1200:
-                    for node in set.name:
-                        if complete[set.name.index(node)] == False:
+                    else:
+                        if (sum/len(set.name)>=0.5) and (prevDelta.total_seconds() > startDelta.total_seconds()/3):
+                            time.sleep(10)
                             subprocess.call(['docker exec mn.%s sh -c "(docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-
+            if prev < sum: #check if another host downloaded the image
+                prev = sum
+                iPrev = datetime.now()
+                prevDelta = iCurrent - iPrev #time since last download
+            else:
+                if sum > len(set.seeder): #if at least one host beside the seeder got the image
+                    prevDelta = iCurrent - iPrev #time since last download
+                    if prevDelta.total_seconds() >= (startDelta.total_seconds()*2/3): #if the time since the last download is at least
+                        #downloads take too long
+                        tmp = ''
+                        for node in set.name:
+                            if complete[set.name.index(node)] == False:
+                                missing.append(node)
+                                tmp = tmp + ' %s' % node
+                        print missing
+                        unfinished_doc = open('measurements/%s/%s/%s/missing.txt' % (currentInstance, currentTest, i), 'w+')
+                        unfinished_doc.write(tmp)
+                        unfinished_doc.close()
+                        sum = len(set.name)
         bar_download.finish()
         print 'Download(s) successful'
 

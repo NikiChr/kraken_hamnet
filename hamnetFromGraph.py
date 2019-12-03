@@ -110,6 +110,8 @@ def startDocker(G, net):
         rew.agent_param(net.get(node).name)
         rew.herd_param(net.get(node).name)
         subprocess.call(['docker cp ./tmp/. mn.%s:etc/kraken/.' % net.get(node).name],shell=True)
+        if net.get(node).name in set.seeder:
+            net.get(node).cmdPrint('docker run --restart=unless-stopped --name registry -d -p 5001:5000 172.17.0.1:5000/registry')
         #subprocess.call(['docker exec mn.%s chmod 777 ./etc/kraken/agent_param.sh ./etc/kraken/herd_param.sh /etc/kraken/herd_start_processes.sh ./etc/kraken/herd_param.sh' % net.get(node).name],shell=True)
         if net.get(node).name in set.servers:
             #net.get(node).cmdPrint('export IP=%s && docker-compose -f stack_server.yml up -d' % net.get(node).IP())
