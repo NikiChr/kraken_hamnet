@@ -1,0 +1,4 @@
+Chain INPUT (policy ACCEPT 4055 packets, 125748128 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+     122    11067 IN         all  --  db0taw-db0nu *       0.0.0.0/0            0.0.0.0/0           
+    2492 74749929            all  --  db0taw-db0zb *       0.0.0.0/0            0.0.0.0/0           

@@ -84,9 +84,10 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
                 #subprocess.call(['docker exec -it mn.%s docker exec -it kraken_agent sh -c "rm -rf ~/var/cache/kraken/kraken-agent/cache/*"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                 #subprocess.call(['docker exec -it mn.%s docker exec -it kraken_agent sh -c "rm -rf ~/var/cache/kraken/kraken-agent/nginx/*"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                 if node in set.servers:
-                    subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent && source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d)"' % (node, set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                    subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd && source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d)"' % (node, set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                 else:
                     subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent && source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d)"' % (node, set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         print ('All traces of %s deleted on every host' % image)
         print ('Waiting for torrents to clean up')
@@ -111,7 +112,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         print iStart
         bar_download = IncrementalBar('Waiting for download(s)', max = len(set.name))
         for node in set.name:
-            subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            #subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             if not node in set.seeder:
                 #time.sleep(0.1)
                 subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_start.txt && docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, node, i, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
@@ -130,49 +131,19 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
                 subprocess.call(['docker exec mn.%s docker stop kraken_herd &' % (set.servers[j])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         #check download
-        #boost = True
-        prev = sum
-        #delta = iCurrent - iStart
-        #iCurrent = datetime.now()
-        missing = []
-        while sum < len(set.name): #
-            iCurrent = datetime.now()
-            prevDelta = iCurrent - iPrev #time since last download
-            startDelta = iCurrent - iStart
-            time.sleep(60)
-            if (sum/len(set.name)>=0.5) or (startDelta.total_seconds() > 480):
-                time.sleep(60)
-            print ('\nTime since start %ss' % startDelta.total_seconds())
-            print ('Time since last update %ss' % prevDelta.total_seconds())
+        while sum < len(set.name):
             for node in set.name:
                 if complete[set.name.index(node)] == False:
                     if 'localhost:16000/test/%s' % (image) in subprocess.check_output(['docker exec mn.%s docker image ls' % node],shell=True):
+                        print ('Docker pull successful for mn.%s' % node)
                         sum = sum + 1
                         complete[set.name.index(node)] = True
                         bar_download.next()
                     else:
-                        if (sum/len(set.name)>=0.5) and (prevDelta.total_seconds() > startDelta.total_seconds()/3):
-                            time.sleep(10)
+                        if not 'docker pull localhost:16000/test/%s' % (image) in subprocess.check_output(['docker exec mn.%s sh -c "ps -a"' % node],shell=True):
                             subprocess.call(['docker exec mn.%s sh -c "(docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-            if prev < sum: #check if another host downloaded the image
-                prev = sum
-                iPrev = datetime.now()
-                prevDelta = iCurrent - iPrev #time since last download
-            else:
-                if sum > len(set.seeder): #if at least one host beside the seeder got the image
-                    prevDelta = iCurrent - iPrev #time since last download
-                    if prevDelta.total_seconds() >= (startDelta.total_seconds()*2/3): #if the time since the last download is at least
-                        #downloads take too long
-                        tmp = ''
-                        for node in set.name:
-                            if complete[set.name.index(node)] == False:
-                                missing.append(node)
-                                tmp = tmp + ' %s' % node
-                        print missing
-                        unfinished_doc = open('measurements/%s/%s/%s/missing.txt' % (currentInstance, currentTest, i), 'w+')
-                        unfinished_doc.write(tmp)
-                        unfinished_doc.close()
-                        sum = len(set.name)
+                            print ('Docker pull restarted for mn.%s' % node)
+            time.sleep(1)
         bar_download.finish()
         print 'Download(s) successful'
 
