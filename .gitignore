@@ -2,3 +2,5 @@ measurements/
 interfaces/
 images/
 test/
+tmp/
+*.pyc
