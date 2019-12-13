@@ -112,6 +112,7 @@ def download(iteration, size, layer, outage = False, oNr = 0, oTime = 0):
         print iStart
         bar_download = IncrementalBar('Waiting for download(s)', max = len(set.name))
         for node in set.name:
+            #subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             if not node in set.seeder:
                 #time.sleep(0.1)
                 subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_start.txt && docker pull localhost:16000/test/%stest%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, node, i, i, size, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
