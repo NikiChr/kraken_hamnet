@@ -1,0 +1,7 @@
+Chain INPUT (policy ACCEPT 78681 packets, 166214483 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+    6041  8927356 IN         all  --  db0eam-db0ktb *       0.0.0.0/0            0.0.0.0/0           
+   18965 21753434            all  --  db0eam-db0sn *       0.0.0.0/0            0.0.0.0/0           
+   25877 47264567            all  --  db0eam-db0khh *       0.0.0.0/0            0.0.0.0/0           
+    8146 17197776            all  --  db0eam-db0war *       0.0.0.0/0            0.0.0.0/0           
+   18246 20073723            all  --  db0eam-db0mac *       0.0.0.0/0            0.0.0.0/0           

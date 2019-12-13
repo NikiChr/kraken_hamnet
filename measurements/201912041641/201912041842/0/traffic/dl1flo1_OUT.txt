@@ -1,0 +1,4 @@
+Chain OUTPUT (policy ACCEPT 96989 packets, 236771098 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   80880 156261844 OUT        all  --  *      dl1flo1-dg7rz1  0.0.0.0/0            0.0.0.0/0           
+   14621 29441575            all  --  *      dl1flo1-db0cj  0.0.0.0/0            0.0.0.0/0           

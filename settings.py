@@ -9,8 +9,9 @@ if edgelist == './hamnetgraphfull':
     servers = ['db0zb','db0bi','db0hrf','db0hex','db0hr','db0zka','db0ab','db0ins','db0ko','db0lb']
 elif edgelist == './hamnet100_renamed':
     seeder = ['db0zb']
-    servers = ['db0zb'] #1
+    #servers = ['db0zb'] #1
     #servers = ['db0zb','db0hex'] #2
+    servers = ['db0zb','db0hex','db0ins','db0taw','db0hbg'] #5
     #servers = ['db0zb','db0hex','db0ins','db0taw','db0hbg','db0vox','db0uc','db0eam','db0hhb','db0bio'] #10
     #servers = ['db0gth', 'db0wof', 'db0mw', 'db0mhb', 'db0vox', 'db0bul', 'db0wk', 'db0cgw', 'dl1flo1', 'db0son', 'db0rvb', 'db0ins', 'db0kvk', 'db0mio', 'db0cha', 'dm0avh', 'db0mak', 'db0hsr', 'db0mac', 'db0kt', 'dm0hr', 'df0ann', 'db0uhf', 'db0bl', 'db0zw', 'db0bwl', 'db0zm', 'db0bt', 'db0zb', 'db0slk', 'db0fue', 'db0eam', 'db0ein', 'db0hal', 'db0uc', 'dm0ea', 'db0ea', 'db0eb', 'db0hhb', 'db0ktb', 'db0ktn', 'db0nes', 'db0mpq', 'db0oha', 'dg7rz1', 'db0bbg', 'db0fhc', 'db0fha', 'db0fhn', 'db0ase', 'db0tan', 'db0for', 'db0war', 'db0bio', 'df0esa', 'dl9nbj1', 'db0nhm', 'db0hof', 'db0khh', 'db0hol', 'dl8new1', 'db0bam', 'db0hq', 'db0jgk', 'db0noe', 'db0bay', 'db0sbn', 'db0kat', 'db0sn', 'db0cj', 'db0hnk', 'db0hw', 'db0hbs', 'db0dri', 'db0hbg', 'db0gj', 'db0taw', 'db0adb', 'db0hrc', 'db0faa', 'db0hzs', 'db0eml', 'df0as', 'dl1nux', 'db0hex', 'db0shg', 'dm0et', 'db0nu', 'db0yq', 'db0feu', 'db0yz', 'db0rom', 'db0fc', 'dm0svx', 'db0abc', 'db0abb', 'db0ab', 'db0abz', 'db0cra', 'db0erf'] #100
 else:
@@ -42,7 +43,7 @@ def useDownload():
 def chooseBoolean():
     check = False
     while check == False:
-        input = raw_input("Simulate server outage? (y/n): ")
+        input = raw_input("Simulate server outage (y/n): ")
         if input in ['y','yes','Y','Yes','True','true']:
             check = True
             return True
@@ -71,9 +72,9 @@ def testIterations():
     else:
         return 'Merkwuerdiger Fehler'
 
-def measureTime(title,bo, Instance, Test, iteration):
+def measureTime(bo, Instance, Test, iteration):
     timeDelta = [[] for i in range(int(iteration))]
-    doc = open('./measurements/%s/%s/results/time_%s.txt' % (Instance,Test,title), 'w+')
+    doc = open('./measurements/%s/%s/results/time.txt' % (Instance,Test), 'w+')
 
     for node in name:
         if not node in seeder:
@@ -110,12 +111,12 @@ def measureTime(title,bo, Instance, Test, iteration):
     if bo == True:
         print (timeDelta)
 
-def measureTraffic(title, bo, Instance, Test, iteration):
+def measureTraffic(bo, Instance, Test, iteration):
     bytesIN = [[] for i in range(int(iteration))]
     bytesOUT = [[] for i in range(int(iteration))]
     #print timeDelta
-    docIN = open('./measurements/%s/%s/results/traffic_IN_%s.txt' % (Instance,Test,title), 'w+')
-    docOUT = open('./measurements/%s/%s/results/traffic_OUT_%s.txt' % (Instance,Test,title), 'w+')
+    docIN = open('./measurements/%s/%s/results/traffic_IN.txt' % (Instance,Test), 'w+')
+    docOUT = open('./measurements/%s/%s/results/traffic_OUT.txt' % (Instance,Test), 'w+')
 
     for i in range(int(iteration)):
         for node in name:

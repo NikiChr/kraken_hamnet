@@ -1,0 +1,3 @@
+Chain INPUT (policy ACCEPT 89340 packets, 155984164 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   87817 105049538 IN         all  --  db0nes-db0taw *       0.0.0.0/0            0.0.0.0/0           

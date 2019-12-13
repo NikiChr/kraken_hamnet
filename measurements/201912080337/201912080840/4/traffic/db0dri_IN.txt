@@ -1,0 +1,4 @@
+Chain INPUT (policy ACCEPT 72186 packets, 173336380 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   50290 59712277 IN         all  --  db0dri-db0bio *       0.0.0.0/0            0.0.0.0/0           
+   19510 38883003            all  --  db0dri-db0ktb *       0.0.0.0/0            0.0.0.0/0           

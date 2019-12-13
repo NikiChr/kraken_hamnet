@@ -1,0 +1,3 @@
+Chain OUTPUT (policy ACCEPT 55357 packets, 84507027 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   53833 32749645 OUT        all  --  *      dl8new1-db0rom  0.0.0.0/0            0.0.0.0/0           

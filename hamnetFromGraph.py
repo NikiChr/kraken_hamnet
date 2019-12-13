@@ -159,6 +159,10 @@ doc = open('measurements/currentInstance.txt', 'w+')
 doc.write(currentInstance)
 doc.close()
 
+subprocess.call(['rm -f measurements/%s/counter.txt' % currentInstance],shell=True)
+doc = open('measurements/%s/counter.txt' % currentInstance,'w+')
+doc.write('0\n')
+doc.close()
 
 containerInfo()
 set.readNodes()

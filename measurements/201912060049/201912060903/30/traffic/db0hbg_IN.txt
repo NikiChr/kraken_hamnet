@@ -1,0 +1,9 @@
+Chain INPUT (policy ACCEPT 115694 packets, 138516350 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   13003   700231 IN         all  --  db0hbg-db0faa *       0.0.0.0/0            0.0.0.0/0           
+   13425 16050008            all  --  db0hbg-db0ab *       0.0.0.0/0            0.0.0.0/0           
+    9896  8904061            all  --  db0hbg-db0feu *       0.0.0.0/0            0.0.0.0/0           
+   22861  1216410            all  --  db0hbg-db0mpq *       0.0.0.0/0            0.0.0.0/0           
+   23241 13165092            all  --  db0hbg-db0zb *       0.0.0.0/0            0.0.0.0/0           
+    2850   149276            all  --  db0hbg-db0bl *       0.0.0.0/0            0.0.0.0/0           
+   28943 47401854            all  --  db0hbg-db0vox *       0.0.0.0/0            0.0.0.0/0           

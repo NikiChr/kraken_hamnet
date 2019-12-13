@@ -1,3 +1,0 @@
-Chain INPUT (policy ACCEPT 2019 packets, 50952268 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-      10     1095 IN         all  --  db0ren-db0son *       0.0.0.0/0            0.0.0.0/0           

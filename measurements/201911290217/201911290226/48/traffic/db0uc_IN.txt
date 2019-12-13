@@ -1,6 +1,0 @@
-Chain INPUT (policy ACCEPT 2067 packets, 186292 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-       2      104 IN         all  --  db0uc-db0zb *       0.0.0.0/0            0.0.0.0/0           
-       1       52            all  --  db0uc-db0adb *       0.0.0.0/0            0.0.0.0/0           
-    1009    90292            all  --  db0uc-db0rom *       0.0.0.0/0            0.0.0.0/0           
-      22     1744            all  --  db0uc-dl1nux *       0.0.0.0/0            0.0.0.0/0           

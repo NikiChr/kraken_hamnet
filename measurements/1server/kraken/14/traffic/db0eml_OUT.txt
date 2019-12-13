@@ -1,0 +1,3 @@
+Chain OUTPUT (policy ACCEPT 65341 packets, 130728250 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   63724 79658255 OUT        all  --  *      db0eml-db0ins  0.0.0.0/0            0.0.0.0/0           

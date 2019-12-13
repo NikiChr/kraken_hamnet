@@ -1,0 +1,6 @@
+Chain INPUT (policy ACCEPT 86527 packets, 160736680 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   57239 90062112 IN         all  --  db0tan-db0taw *       0.0.0.0/0            0.0.0.0/0           
+    3539   186195            all  --  db0tan-db0kat *       0.0.0.0/0            0.0.0.0/0           
+   21389 15724722            all  --  db0tan-db0wk *       0.0.0.0/0            0.0.0.0/0           
+    2762  3821535            all  --  db0tan-db0mw *       0.0.0.0/0            0.0.0.0/0           

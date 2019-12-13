@@ -1,0 +1,8 @@
+Chain INPUT (policy ACCEPT 148033 packets, 196303561 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+   45179 16339474 IN         all  --  db0vox-db0zb *       0.0.0.0/0            0.0.0.0/0           
+    9880 27615977            all  --  db0vox-db0fhn *       0.0.0.0/0            0.0.0.0/0           
+   19237  5200629            all  --  db0vox-db0gj *       0.0.0.0/0            0.0.0.0/0           
+   27178 10062528            all  --  db0vox-db0hbg *       0.0.0.0/0            0.0.0.0/0           
+   32751 31290724            all  --  db0vox-db0for *       0.0.0.0/0            0.0.0.0/0           
+   10521   550178            all  --  db0vox-db0fue *       0.0.0.0/0            0.0.0.0/0           

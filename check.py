@@ -9,7 +9,13 @@ import os
 import subprocess
 import settings as set
 
+global repeat
+repeat = False
+
 def check():
+    repeat = False
+    global repeat
+    overallCheck = True
     #set.readNodes()
     sumB = 0
     babeld = []
@@ -41,13 +47,16 @@ def check():
                 else:
                     checkH = True
         if checkB == False:
+            overallCheck = False
             babeld.append(node)
             sumB = sumB + 1
         if checkA == False:
+            overallCheck = False
             if node in babeld:
                 agent.append(node)
             sumA = sumA + 1
         if checkH == False:
+            overallCheck = False
             herd.append(node)
             sumH = sumH + 1
 
@@ -71,3 +80,9 @@ def check():
     for node in herd:
         if not node in (babeld or agent):
             subprocess.call(['docker exec -it mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (node, set.ip[set.name.index(node)])],shell=True)
+
+    if overallCheck == True:
+        repeat = False
+    else:
+        repeat = True
+    #return repeat

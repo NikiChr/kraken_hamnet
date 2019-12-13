@@ -1,6 +1,6 @@
 #!/bin/bash
-docker pull registry:2.7.1
-docker tag registry:2.7.1 172.17.0.1:5000/registry
+docker pull registry:2.6
+docker tag registry:2.6 172.17.0.1:5000/registry
 docker push 172.17.0.1:5000/registry
 
 docker pull nikitach/kraken-agent:v0.1.3
