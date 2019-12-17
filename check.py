@@ -52,8 +52,7 @@ def check():
             sumB = sumB + 1
         if checkA == False:
             overallCheck = False
-            if node in babeld:
-                agent.append(node)
+            agent.append(node)
             sumA = sumA + 1
         if checkH == False:
             overallCheck = False

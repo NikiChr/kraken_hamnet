@@ -60,7 +60,6 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
 
     #edit input and starting environment
     image = image.strip()
-    tag = raw_input("Please enter tag name: ")
     for node in set.name:
         subprocess.call(['docker exec mn.%s sh -c "rm -rf times/*"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
         subprocess.call(['docker exec mn.%s sh -c "mkdir times/"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
@@ -83,12 +82,13 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         bar_delete = IncrementalBar('Waiting for cleanup(s)', max = len(set.name))
         for node in set.name:
             #time.sleep(1)
-            subprocess.call(['docker exec mn.%s docker image rm -f localhost:16000/test/%s' % (node, tag)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec mn.%s docker image rm -f localhost:16000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             #subprocess.call(['docker exec -it mn.%s docker image rm -f localhost:15000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             #if not node in set.seeder:
             if node in set.servers:
                 #subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent && source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d)"' % (node, set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-                subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd )"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                #subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd)"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent)"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             else:
                 #subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent && source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d)"' % (node, set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                 subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent)"&' % node],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
@@ -103,14 +103,16 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
             for node in set.name:
                 if deleted[set.name.index(node)] == False:
                     if node in set.servers:
-                        if not ('kraken_agent' and 'kraken_herd') in subprocess.check_output(['docker exec mn.%s docker ps' % node],shell=True):
+                        if not ('kraken_agent') in subprocess.check_output(['docker exec mn.%s docker ps' % node],shell=True):
+                        #if not ('kraken_agent' and 'kraken_herd') in subprocess.check_output(['docker exec mn.%s docker ps' % node],shell=True):
                             sum = sum + 1
                             deleted[set.name.index(node)] = True
                             bar_delete.next()
                             #print node
                         else:
                             if not ('docker rm' or 'docker stop') in subprocess.check_output(['docker exec mn.%s ps -a' % node],shell=True):
-                                subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd )"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                                #subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd )"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                                subprocess.call(['docker exec mn.%s sh -c "(docker stop kraken_agent && docker rm kraken_agent)"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                                 #subprocess.call(['docker exec -it mn.%s sh -c "(docker stop kraken_agent kraken_herd && docker rm kraken_agent kraken_herd )"&' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                                 #print node
                     else:
@@ -184,8 +186,12 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         for node in set.seeder:
             #if i == 0:
             subprocess.call(['docker exec mn.%s docker pull %s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-            subprocess.call(['docker exec mn.%s docker tag %s localhost:15000/test/%s' % (node, image, tag)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec mn.%s docker pull %s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec mn.%s docker pull %s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec mn.%s docker tag %s localhost:15000/test/%s' % (node, image, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             print ('Pushing %s to registry(s) for sharing' % image)
+            subprocess.call(['docker exec mn.%s docker push localhost:15000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            subprocess.call(['docker exec mn.%s docker push localhost:15000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             subprocess.call(['docker exec mn.%s docker push localhost:15000/test/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
         time.sleep(60)
 
@@ -199,7 +205,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         for node in set.name:
             if not node in set.seeder:
                 #time.sleep(0.1)
-                subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_start.txt && docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, node, i, tag, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                subprocess.call(['docker exec mn.%s sh -c "(date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_start.txt && docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, node, i, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             else:
                 complete[set.name.index(node)] = True
                 bar_download.next()
@@ -218,14 +224,14 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         while sum < len(set.name):
             for node in set.name:
                 if complete[set.name.index(node)] == False:
-                    if 'localhost:16000/test/%s' % (tag) in subprocess.check_output(['docker exec mn.%s docker image ls' % node],shell=True):
+                    if 'localhost:16000/test/%s' % image in subprocess.check_output(['docker exec mn.%s docker image ls' % node],shell=True):
                         print ('Docker pull successful for mn.%s' % node)
                         sum = sum + 1
                         complete[set.name.index(node)] = True
                         bar_download.next()
                     else:
-                        if not 'docker pull localhost:16000/test/%s' % (tag) in subprocess.check_output(['docker exec mn.%s sh -c "ps -a"' % node],shell=True):
-                            subprocess.call(['docker exec mn.%s sh -c "(docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, tag, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                        if not 'docker pull localhost:16000/test/%s' % image in subprocess.check_output(['docker exec mn.%s sh -c "ps -a"' % node],shell=True):
+                            subprocess.call(['docker exec mn.%s sh -c "(docker pull localhost:16000/test/%s && date +"%%Y-%%m-%%dT%%T.%%6N" > times/%s_%s_end.txt)"&' % (node, image, node, i)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
                             print ('Docker pull restarted for mn.%s' % node)
             time.sleep(1)
         bar_download.finish()
@@ -251,6 +257,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
     #set.measureTime(image, False, currentInstance, currentTest, iteration)
     #set.measureTraffic(image, False, currentInstance, currentTest, iteration)
 
+
 with open('measurements/currentInstance.txt','r+') as current:
     lines = current.readlines()
     currentInstance = str(lines[-1])
@@ -271,6 +278,9 @@ if serverOutage == True:
     outageTime = raw_input("Please enter time in seconds when server(s) shut(s) down: ")
     outageTime = outageTime.strip()
 
+doc = open('./measurements/%s/%s/results/setup.txt' % (currentInstance, currentTest), 'w+')
+doc.write('Server:%s\nHosts:%s\nSeeders:%s\nImage:%s\nServer outage:%s\nOutage number:%s\nOutage start:%s' % (str(len(set.servers)), str(len(set.name)), str(len(set.seeder)), image, outage, oNr, oTime))
+doc.close()
 download(testImage, set.testIterations(), serverOutage, outageNr, outageTime)
 
 print ('Output in: measurements/%s/%s/' % (currentInstance, currentTest))
