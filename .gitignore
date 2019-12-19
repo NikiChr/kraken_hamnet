@@ -1,5 +1,4 @@
 measurements/
-interfaces/*
 interfaces/
 images/
 test/
@@ -7,3 +6,4 @@ tmp/
 *.pyc
 test.py
 test*
+*.txt

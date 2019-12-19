@@ -4,6 +4,7 @@ import os
 #import downloadFiles as dF
 
 edgelist = './hamnet100_renamed'
+#edgelist = './hamnetgraph'
 if edgelist == './hamnetgraphfull':
     seeder = ['db0zb']
     servers = ['db0zb','db0bi','db0hrf','db0hex','db0hr','db0zka','db0ab','db0ins','db0ko','db0lb']
