@@ -1,3 +1,0 @@
-Chain OUTPUT (policy ACCEPT 66544 packets, 133044102 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   64958 82105981 OUT        all  --  *      db0war-db0eam  0.0.0.0/0            0.0.0.0/0           

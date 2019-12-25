@@ -1,3 +1,0 @@
-Chain INPUT (policy ACCEPT 54605 packets, 201485199 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   52218 122602311 IN         all  --  dl8new1-db0rom *       0.0.0.0/0            0.0.0.0/0           

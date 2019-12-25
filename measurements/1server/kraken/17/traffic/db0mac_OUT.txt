@@ -1,5 +1,0 @@
-Chain OUTPUT (policy ACCEPT 116711 packets, 262742621 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   24985 50120843 OUT        all  --  *      db0mac-db0bio  0.0.0.0/0            0.0.0.0/0           
-   38201 62222162            all  --  *      db0mac-db0eam  0.0.0.0/0            0.0.0.0/0           
-   50177 43772632            all  --  *      db0mac-db0ins  0.0.0.0/0            0.0.0.0/0           

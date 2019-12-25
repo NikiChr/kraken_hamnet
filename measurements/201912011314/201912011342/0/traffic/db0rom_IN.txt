@@ -1,5 +1,0 @@
-Chain INPUT (policy ACCEPT 1273 packets, 50913548 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-       0        0 IN         all  --  db0rom-dl0new *       0.0.0.0/0            0.0.0.0/0           
-       8      416            all  --  db0rom-db0ktn *       0.0.0.0/0            0.0.0.0/0           
-      17     1459            all  --  db0rom-db0uc *       0.0.0.0/0            0.0.0.0/0           

@@ -1,3 +1,0 @@
-Chain INPUT (policy ACCEPT 55165 packets, 145760407 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   53647 94817362 IN         all  --  db0war-db0eam *       0.0.0.0/0            0.0.0.0/0           

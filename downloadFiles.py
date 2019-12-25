@@ -233,10 +233,6 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         print ('\nAll traces of %s deleted on every host' % image)
         #checkKrakenContainer()
 
-
-
-
-
         check.check()
         while check.repeat == True:
             check.check()
