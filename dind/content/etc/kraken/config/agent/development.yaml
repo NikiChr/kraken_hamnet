@@ -3,12 +3,12 @@ extends: base.yaml
 tracker:
   hosts:
     static:
-      - 44.44.12.1:15003
+      - 44.0.12.1:15003
 
 build_index:
   hosts:
     static:
-      - 44.44.12.1:15004
+      - 44.0.12.1:15004
 
 allowed_cidrs:
   - 127.0.0.1
