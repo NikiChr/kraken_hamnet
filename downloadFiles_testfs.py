@@ -171,6 +171,7 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
                     else:
                         test = True
                         print 'success'
+            subprocess.call(['docker exec -it mn.%s sh -c "iptables -Z"' % (node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         #start download
         sum = 0
