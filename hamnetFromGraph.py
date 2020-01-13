@@ -31,7 +31,6 @@ def graph2Network(G, net):
     nextip = 738197504  #44.0.0.0
 
     for (u,v,c) in G.edges.data():
-
         set.restartExited()
 
         left_ip = nextip
@@ -75,8 +74,7 @@ def graph2Network(G, net):
             print("set on host %s interface %s" % (v, if2))
             net.get(v).setIP(socket.inet_ntoa(struct.pack('!I',right_ip)), prefixLen=31, intf=if2)
     #print (nodeList)
-    #return
-
+	time.sleep(1)
 
 def limitLinks(G, net, routing):
     for (u, v, c) in G.edges.data():
@@ -104,6 +102,7 @@ def restartLinks(G, net):
 def startDocker(G, net):
     bar = IncrementalBar('Starting Containers', max = numberOfNodes)
     for node in G.nodes():
+        time.sleep(1)
         rew.rewriteConfig(net.get(node).name)
         set.restartExited()
         #print net.get(node).name
@@ -134,7 +133,6 @@ def containerInfo():
 
 G = nx.read_edgelist(set.edgelist)
 
-
 remove = [node for node in G.nodes() if not node.startswith('d')]
 G.remove_nodes_from(remove)
 
@@ -146,7 +144,6 @@ for H in graphs:
     if H.number_of_nodes() > numberOfNodes:
         G = H
         numberOfNodes = H.number_of_nodes()
-
 
 net = Containernet()
 graph2Network(G, net)

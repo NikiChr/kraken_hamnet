@@ -153,12 +153,24 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
 
         #prepare seeder
         print ('Preparing seeder(s)')
-        time.sleep(120)
+        #time.sleep(240)
         for node in set.seeder:
             subprocess.call(['docker exec mn.%s docker pull %s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             subprocess.call(['docker exec mn.%s docker tag %s localhost:15000/%s' % (node, image, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
             print ('Pushing %s to registry(s) for sharing' % image)
-            subprocess.call(['docker exec mn.%s docker push localhost:15000/%s' % (node, image)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+            test = False
+            while test == False:
+                subprocess.call(['docker exec mn.%s sh -c "docker push localhost:15000/%s &> push.txt"' % (node, image)],shell=True)
+                subprocess.call(['docker cp mn.%s:push.txt ./push.txt' % node],shell=True)
+                with open('push.txt', 'r') as file:
+                    data = file.read()
+                    if 'received unexpected HTTP status: 502 Bad Gateway' in data:
+                        print ('ERROR: %s' % data)
+                    if 'received unexpected HTTP status: 500 Internal Server Error' in data:
+                        print ('ERROR: %s' % data)
+                    else:
+                        test = True
+                        print 'success'
 
         #start download
         sum = 0
@@ -181,9 +193,9 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
         if outage == True:
             print ('Waiting %s seconds for outage...' % oTime)
             time.sleep(int(oTime))
-            for j in range(int(oNr)):
+            for j in range(1,int(oNr)+1):
                 print set.servers[j]
-                subprocess.call(['docker exec mn.%s docker stop kraken_herd &' % (set.servers[j])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                subprocess.call(['docker exec mn.%s docker stop kraken_herd &' % (set.servers[-j])],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         #check download
         while sum < len(set.name):
@@ -213,9 +225,9 @@ def download(image, iteration, outage = False, oNr = 0, oTime = 0):
             subprocess.call(['docker cp mn.%s:tmp_OUT.txt measurements/%s/%s/%s/traffic/%s_OUT.txt' % (node, currentInstance, currentTest, i, node)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
         #in case of outage restarted
-        if outage == True:
-            for i in range(int(oNr)):
-                subprocess.call(['docker exec mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (set.servers[i], set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
+        #if outage == True:
+            #for i in range(int(oNr)):
+                #subprocess.call(['docker exec mn.%s sh -c "source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d"' % (set.servers[i], set.ip[set.name.index(node)])],stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
 
     set.measureTime(False, currentInstance, currentTest, iteration)
     set.measureTraffic(False, currentInstance, currentTest, iteration)
