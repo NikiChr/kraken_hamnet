@@ -1,5 +1,0 @@
-db0fhn-db0vox Link encap:Ethernet  HWaddr 5E:FE:1C:C0:15:CB  
-          inet addr:44.0.0.23  Bcast:0.0.0.0  Mask:255.255.255.254
---
-db0fhn-df0ann Link encap:Ethernet  HWaddr EA:89:E8:BE:54:95  
-          inet addr:44.0.0.73  Bcast:0.0.0.0  Mask:255.255.255.254

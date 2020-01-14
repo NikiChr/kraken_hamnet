@@ -1,2 +1,0 @@
-db0bay-db0hhb Link encap:Ethernet  HWaddr 7A:55:C4:E5:70:0E  
-          inet addr:44.0.0.143  Bcast:0.0.0.0  Mask:255.255.255.254

@@ -1,2 +1,0 @@
-db0hof-db0zb Link encap:Ethernet  HWaddr 46:FC:4F:05:A4:07  
-          inet addr:44.0.0.99  Bcast:0.0.0.0  Mask:255.255.255.254

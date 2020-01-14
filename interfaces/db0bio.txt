@@ -1,5 +1,0 @@
-db0bio-db0mac
-db0bio-db0ein
-db0bio-db0eb
-db0bio-db0nhm
-db0bio-db0dri

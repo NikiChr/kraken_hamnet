@@ -1,2 +1,0 @@
-db0kt-db0cgw Link encap:Ethernet  HWaddr 3A:43:F3:88:E3:D8  
-          inet addr:44.0.0.31  Bcast:0.0.0.0  Mask:255.255.255.254

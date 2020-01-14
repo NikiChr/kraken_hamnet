@@ -1,3 +1,0 @@
-db0mac-db0ins
-db0mac-db0eam
-db0mac-db0bio

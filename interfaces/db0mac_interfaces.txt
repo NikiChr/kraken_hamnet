@@ -1,8 +1,0 @@
-db0mac-db0bio Link encap:Ethernet  HWaddr FA:F7:1E:DA:F6:7C  
-          inet addr:44.0.0.70  Bcast:0.0.0.0  Mask:255.255.255.254
---
-db0mac-db0eam Link encap:Ethernet  HWaddr 9E:0E:8F:4C:C9:77  
-          inet addr:44.0.0.68  Bcast:0.0.0.0  Mask:255.255.255.254
---
-db0mac-db0ins Link encap:Ethernet  HWaddr 76:9A:CD:7C:59:00  
-          inet addr:44.0.0.57  Bcast:0.0.0.0  Mask:255.255.255.254

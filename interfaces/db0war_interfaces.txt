@@ -1,2 +1,0 @@
-db0war-db0eam Link encap:Ethernet  HWaddr A2:98:13:CB:66:97  
-          inet addr:44.0.0.107  Bcast:0.0.0.0  Mask:255.255.255.254

@@ -1,4 +1,0 @@
-Chain OUTPUT (policy ACCEPT 87813 packets, 200985398 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   16329 20388527 OUT        all  --  *      dl1nux-db0fhc  0.0.0.0/0            0.0.0.0/0           
-   69875 129660306            all  --  *      dl1nux-db0uc  0.0.0.0/0            0.0.0.0/0           

@@ -1,8 +1,0 @@
-dl0new-db0ktn Link encap:Ethernet  HWaddr 12:5B:30:1D:78:1F  
-          inet addr:44.0.0.22  Bcast:0.0.0.0  Mask:255.255.255.254
---
-dl0new-db0mio Link encap:Ethernet  HWaddr D2:78:40:27:78:E4  
-          inet addr:44.0.0.15  Bcast:0.0.0.0  Mask:255.255.255.254
---
-dl0new-db0rom Link encap:Ethernet  HWaddr 06:A1:82:37:40:5E  
-          inet addr:44.0.0.20  Bcast:0.0.0.0  Mask:255.255.255.254

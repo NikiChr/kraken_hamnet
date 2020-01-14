@@ -1,5 +1,0 @@
-db0wk-db0cgw Link encap:Ethernet  HWaddr C6:CF:7A:D5:EA:A3  
-          inet addr:44.0.0.26  Bcast:0.0.0.0  Mask:255.255.255.254
---
-db0wk-db0tan Link encap:Ethernet  HWaddr A6:6B:95:56:CB:13  
-          inet addr:44.0.0.28  Bcast:0.0.0.0  Mask:255.255.255.254

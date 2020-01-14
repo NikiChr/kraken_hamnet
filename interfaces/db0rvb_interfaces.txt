@@ -1,5 +1,0 @@
-db0rvb-db0abb Link encap:Ethernet  HWaddr 0A:81:51:82:18:39  
-          inet addr:44.0.0.40  Bcast:0.0.0.0  Mask:255.255.255.254
---
-db0rvb-db0hex Link encap:Ethernet  HWaddr 4A:E8:E1:9A:03:44  
-          inet addr:44.0.0.42  Bcast:0.0.0.0  Mask:255.255.255.254

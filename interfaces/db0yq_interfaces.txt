@@ -1,2 +1,0 @@
-db0yq-db0zb Link encap:Ethernet  HWaddr 3A:E5:39:7F:92:EE  
-          inet addr:44.0.0.97  Bcast:0.0.0.0  Mask:255.255.255.254

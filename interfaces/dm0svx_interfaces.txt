@@ -1,2 +1,0 @@
-dm0svx-db0hal Link encap:Ethernet  HWaddr 7E:44:9F:C8:57:53  
-          inet addr:44.0.0.123  Bcast:0.0.0.0  Mask:255.255.255.254

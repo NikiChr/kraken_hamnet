@@ -1,2 +1,0 @@
-db0erf-db0hex Link encap:Ethernet  HWaddr 92:EE:2D:F3:40:20  
-          inet addr:44.0.0.233  Bcast:0.0.0.0  Mask:255.255.255.254

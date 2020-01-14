@@ -1,2 +1,0 @@
-db0nes-db0taw Link encap:Ethernet  HWaddr EE:36:07:96:68:88  
-          inet addr:44.0.0.156  Bcast:0.0.0.0  Mask:255.255.255.254

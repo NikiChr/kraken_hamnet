@@ -1,2 +1,0 @@
-db0eml-db0ins Link encap:Ethernet  HWaddr EA:A1:4E:3B:95:AA  
-          inet addr:44.0.0.49  Bcast:0.0.0.0  Mask:255.255.255.254

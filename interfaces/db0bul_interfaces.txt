@@ -1,2 +1,0 @@
-db0bul-db0mhb Link encap:Ethernet  HWaddr 36:13:0C:59:22:A4  
-          inet addr:44.0.0.7  Bcast:0.0.0.0  Mask:255.255.255.254

@@ -1,2 +1,0 @@
-db0sbn-db0ins Link encap:Ethernet  HWaddr 9A:CC:5E:97:5E:34  
-          inet addr:44.0.0.53  Bcast:0.0.0.0  Mask:255.255.255.254

@@ -1,3 +1,0 @@
-Chain INPUT (policy ACCEPT 69298 packets, 175947881 bytes)
-    pkts      bytes target     prot opt in     out     source               destination         
-   67701 125006326 IN         all  --  db0eml-db0ins *       0.0.0.0/0            0.0.0.0/0           

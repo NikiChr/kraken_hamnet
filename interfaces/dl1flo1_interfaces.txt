@@ -1,5 +1,0 @@
-dl1flo1-db0cj Link encap:Ethernet  HWaddr 26:23:35:6A:65:63  
-          inet addr:44.0.0.32  Bcast:0.0.0.0  Mask:255.255.255.254
---
-dl1flo1-dg7rz1 Link encap:Ethernet  HWaddr 0E:FC:4A:36:03:44  
-          inet addr:44.0.0.34  Bcast:0.0.0.0  Mask:255.255.255.254
