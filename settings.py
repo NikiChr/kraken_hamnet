@@ -185,6 +185,23 @@ def findInterfaces():
                 doc.write(interfaces[i])
         doc.close
 
+def interfaceIp(host_ip):
+    subprocess.call(["docker exec mn.%s sh -c 'ifconfig > interfaces.txt'" % host_ip ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+    subprocess.call(["docker cp mn.%s:interfaces.txt ./tmp.txt'" % (host_ip) ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+    interfaceIps = []
+    doc = open('./interfaces/%s_ip.txt' % (host_ip), 'w+')
+    with open('./interfaces/%s.txt' % (host_ip)) as inputName:
+        with open('tmp.txt') as inputIp:
+            linesName = inputName.readlines()
+            linesIp = inputIp.readlines()
+            for lineName in linesName:
+                for lineIp in linesIp:
+                    if lineName in lineIp:
+                        tmp = linesIp[linesIp.index(lineIp) + 1]
+                        interfaceIps.append(tmp[lineIp.find('inet addr:'):lineIp.find('  Bcast')])
+                        doc.write(tmp[lineIp.find('inet addr:'):lineIp.find('  Bcast')] + '\n')
+    doc.close()
+
 def readNodes():
     global name
     name = []
@@ -222,17 +239,17 @@ def checkNetwork():
 def setupIptables():
     for node in name:
         #print node
-        subprocess.call(["docker exec -it mn.%s sh -c 'iptables -N IN'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-        subprocess.call(["docker exec -it mn.%s sh -c 'iptables -N OUT'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-        subprocess.call(["docker exec -it mn.%s sh -c 'iptables -N FOR'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+        subprocess.call(["docker exec mn.%s sh -c 'iptables -N IN'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+        subprocess.call(["docker exec mn.%s sh -c 'iptables -N OUT'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+        subprocess.call(["docker exec mn.%s sh -c 'iptables -N FOR'" % node ],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
         with open('interfaces/%s.txt' % (node)) as input:
             for line in input.readlines():
                 if not line == '':
                     #print line
-                    subprocess.call(["docker exec -it mn.%s sh -c 'iptables -I INPUT -i %s -j IN'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-                    subprocess.call(["docker exec -it mn.%s sh -c 'iptables -I OUTPUT -o %s -j OUT'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-                    subprocess.call(["docker exec -it mn.%s sh -c 'iptables -I FORWARD -i %s -j FOR'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
-                    subprocess.call(["docker exec -it mn.%s sh -c 'iptables -I FORWARD -o %s -j FOR'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                    subprocess.call(["docker exec mn.%s sh -c 'iptables -I INPUT -i %s -j IN'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                    subprocess.call(["docker exec mn.%s sh -c 'iptables -I OUTPUT -o %s -j OUT'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                    subprocess.call(["docker exec mn.%s sh -c 'iptables -I FORWARD -i %s -j FOR'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
+                    subprocess.call(["docker exec mn.%s sh -c 'iptables -I FORWARD -o %s -j FOR'" % (node, line)],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)
 
 def restartExited(): #restart stopped container
     subprocess.call(["docker ps -a | grep Exited > exited.txt"],stdout=FNULL, stderr=subprocess.STDOUT,shell=True)

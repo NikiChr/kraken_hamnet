@@ -1,5 +1,5 @@
 measurements/
-interfaces/
+interfaces/*
 images/
 test/
 tmp/
@@ -7,3 +7,9 @@ tmp/
 test.py
 test*
 *.txt
+downloadFiles
+infoIP.txt
+infoName.txt
+downloadFiles *
+*copy*
+*.save
