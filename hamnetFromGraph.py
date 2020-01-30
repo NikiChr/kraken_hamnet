@@ -73,7 +73,6 @@ def graph2Network(G, net):
         if not right_ip_isset:
             print("set on host %s interface %s" % (v, if2))
             net.get(v).setIP(socket.inet_ntoa(struct.pack('!I',right_ip)), prefixLen=31, intf=if2)
-    #print (nodeList)
 	time.sleep(1)
 
 def limitLinks(G, net, routing):
@@ -105,20 +104,15 @@ def startDocker(G, net):
         time.sleep(1)
         rew.rewriteConfig(net.get(node).name)
         set.restartExited()
-        #print net.get(node).name
         rew.agent_param(net.get(node).name)
         rew.herd_param(net.get(node).name)
         subprocess.call(['docker cp ./tmp/. mn.%s:etc/kraken/.' % net.get(node).name],shell=True)
         if net.get(node).name in set.seeder:
             net.get(node).cmdPrint('docker run --restart=unless-stopped --name registry -d -p 5001:5000 172.17.0.1:5000/registry')
-        #subprocess.call(['docker exec mn.%s chmod 777 ./etc/kraken/agent_param.sh ./etc/kraken/herd_param.sh /etc/kraken/herd_start_processes.sh ./etc/kraken/herd_param.sh' % net.get(node).name],shell=True)
         if net.get(node).name in set.servers:
-            #net.get(node).cmdPrint('export IP=%s && docker-compose -f stack_server.yml up -d' % net.get(node).IP())
             net.get(node).cmdPrint('source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_server.yml up -d' % net.get(node).IP())
         else:
-            #net.get(node).cmdPrint('export IP=%s && docker-compose -f stack_client.yml up -d' % net.get(node).IP())
             net.get(node).cmdPrint('source /etc/kraken/agent_param.sh && export AGENT_REGISTRY_PORT AGENT_PEER_PORT AGENT_SERVER_PORT && export IP=%s && docker-compose -f stack_client.yml up -d' % net.get(node).IP())
-
         bar.next()
     bar.finish()
 
@@ -128,8 +122,6 @@ def containerInfo():
     for node in G.nodes():
         infoIP.write(net.get(node).IP() + '\n')
         infoName.write(net.get(node).name + '\n')
-
-        #net.get(node).cmdPrint('export IP=%s && docker-compose up -d' % net.get(node).IP())
 
 G = nx.read_edgelist(set.edgelist)
 
@@ -151,7 +143,6 @@ net.start()
 
 currentInstance = datetime.strftime(datetime.now(),'%Y%m%d%H%M')
 subprocess.call(['mkdir measurements/%s/' % currentInstance],shell=True)
-#print currentInstance
 doc = open('measurements/currentInstance.txt', 'w+')
 doc.write(currentInstance)
 doc.close()
@@ -174,8 +165,6 @@ limitLinks(G, net, 'hallo')
 time.sleep(5)
 print("Check for faulty containers")
 check.check()
-#First host: 44.0.0.0
-#net.get('db0son').cmd('docker exec -it default_database_1 ./cockroach init --insecure')
 
 #set.readNodes()
 set.findInterfaces()
@@ -185,6 +174,5 @@ set.restartExited()
 CLI(net)
 net.stop()
 
-#print("hallo")
 #nx.draw_kamada_kawai(G)
 #plt.show()

@@ -20,5 +20,3 @@ docker stop kraken_build
 docker commit kraken_build kraken_dind
 docker rm kraken_build
 echo '***Image kraken_dind erstellt!'
-
-#docker build -t kraken_dind .

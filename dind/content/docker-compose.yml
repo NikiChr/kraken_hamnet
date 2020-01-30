@@ -50,8 +50,6 @@ services:
         network_mode: "host"
         restart: always
         ports:
-            #- 15000:15000
-            #- 16000:16000
             - 5001:5000
 volumes:
     dbdata:

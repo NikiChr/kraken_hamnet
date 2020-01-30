@@ -18,7 +18,7 @@ elif edgelist == './hamnet100_renamed':
 else:
     seeder = ['db0uc']
     servers = ['db0uc','db0ktn']
-name = [] #db0son, db0zb, db0mio, db0drh, dl0new, db0nu, db0adb, db0bt, db0uc, dl1nux, db0ktn, db0rom, db0ren, db0taw, db0fhc
+name = []
 ip = []
 FNULL = open(os.devnull, 'w')
 
@@ -35,7 +35,6 @@ def useDownload():
         else:
             print 'Wrong input \n'
             check = False
-        #print "%r" % (check) + evaluate
     if evaluate == 'y':
         return True
     else:
@@ -80,14 +79,10 @@ def measureTime(bo, Instance, Test, iteration):
     for node in name:
         if not node in seeder:
             for i in range(int(iteration)):
-                #print i
-                #with open('./measurements/%s/%s/%s/time/%s.txt' % (Instance, Test, int(iteration), node)) as input:
                 with open('./measurements/%s/%s/%s/time/%s_start.txt' % (Instance, Test, i, node)) as start:
                     with open('./measurements/%s/%s/%s/time/%s_end.txt' % (Instance, Test, i, node)) as end:
-                        #print ('%s %s' %(node, i))
                         lines1 = start.readlines()
                         lines2 = end.readlines()
-                        #for line in lines:
                         time1 = lines1[0]
                         time2 = lines2[0]
                         time1 = datetime.strptime(time1[:23], '%Y-%m-%dT%H:%M:%S.%f') #2019-09-30 14:19:25.000
@@ -115,7 +110,6 @@ def measureTime(bo, Instance, Test, iteration):
 def measureTraffic(bo, Instance, Test, iteration):
     bytesIN = [[] for i in range(int(iteration))]
     bytesOUT = [[] for i in range(int(iteration))]
-    #print timeDelta
     docIN = open('./measurements/%s/%s/results/traffic_IN.txt' % (Instance,Test), 'w+')
     docOUT = open('./measurements/%s/%s/results/traffic_OUT.txt' % (Instance,Test), 'w+')
 
@@ -127,18 +121,13 @@ def measureTraffic(bo, Instance, Test, iteration):
                 with open('measurements/%s/%s/%s/traffic/%s_OUT.txt' % (Instance, Test, i, node)) as inputOUT:
                     linesIN = inputIN.readlines()
                     linesOUT = inputOUT.readlines()
-                    #print i
-                    #print node
                     if len(linesIN) > 2:
                         for j in range(2,len(linesIN)): # first two lines are headers
-                            #print j
                             tmp = linesIN[j].split() # tmp[1] = bytes
-                            #print tmp
                             bytesIN[i][name.index(node)] = bytesIN[i][name.index(node)] + int(tmp[1])
                             #print bytesIN[i-1][name.index(node)]
                     if len(linesOUT) > 2:
                         for k in range(2,len(linesOUT)):
-                            #print k
                             tmp = linesOUT[k].split() # tmp[1] = bytes
                             bytesOUT[i][name.index(node)] = bytesOUT[i][name.index(node)] + int(tmp[1])
 
@@ -161,22 +150,17 @@ def measureTraffic(bo, Instance, Test, iteration):
 def findInterfaces():
     for node in name:
         interfaces = []
-        #print node
         doc = open('./interfaces/%s.txt' % (node), 'w+')
         with open(edgelist) as input:
             lines = input.readlines()
             for line in lines:
-                #print line
                 if '%s ' % node in line:
                     tmp = line[:line.find(' {')]
-                    #print tmp
                     nodes = tmp.split()
                     if tmp.startswith('%s ' % node) == True:
                         interfaces.append('%s-%s' % (node, nodes[1]))
-                        #print tmp
                     else:
                         interfaces.append('%s-%s' % (node, nodes[0]))
-                        #print tmp
 
         for i in range(len(interfaces)):
             if not i == len(interfaces) - 1:
@@ -260,6 +244,5 @@ def restartExited(): #restart stopped container
             print ('%s was restarted' % tmp[-1])
 
 def __init__():
-    #readNodes()
     checkNetwork()
     currentInstance = datetime.strftime(datetime.now(),'%Y%m%d%H%M')

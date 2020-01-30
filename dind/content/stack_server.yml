@@ -49,14 +49,5 @@ services:
             - /etc/kraken/config/agent/development.yaml:/etc/kraken/config/agent/development.yaml
         command: /usr/bin/kraken-agent --config=/etc/kraken/config/agent/development.yaml --peer-ip=${HOSTNAME} --peer-port=${AGENT_PEER_PORT} --agent-server-port=${AGENT_SERVER_PORT} --agent-registry-port=${AGENT_REGISTRY_PORT}
 
-    #backend:
-        #image: 172.17.0.1:5000/registry
-        #container_name: registry
-        #privileged: true
-        #network_mode: "host"
-        #restart: unless-stopped
-        #ports:
-            #- 5001:5000
-
 volumes:
     dbdata:
